@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>IMC Calculator</h3>
+      <br>
+      <script>
+        function jumpLine() {
+          document.write("<br>");
+          document.write("<br>");
+        };
+
+        function print(text) {
+          document.write(text);
+          jumpLine();
+        };
+
+        function calculateIMC(weight, height, name) {
+          var imc = weight / (height**2);
+          print("The IMC of " + name + " is: " + imc);
+          return(imc);
+        }
+
+        function calAvgIMC(firstIMC, secondIMC) {
+          var average = (firstIMC + secondIMC) / 2;
+          print("The average IMC is: " + average)
+        }
+
+        name = prompt("Whats your name?");
+        weight = prompt(name + ", your weight?");
+        height = prompt(name + ", your height?");
+
+        imc = calculateIMC(weight, height, name)
+
+        if (imc <= 18.5) {
+          print("IMC below recommended")
+        }
+
+        else if (imc > 18.5 && imc < 25) {
+          print("IMC recommended")
+        }
+
+        else if (imc >= 25 && imc < 30) {
+          print("IMC considered overweight")
+        }
+
+        else {
+          print("IMC considered obesity")
+        }
+
+
+      </script>
+    </main>
+  </body>
+</html>

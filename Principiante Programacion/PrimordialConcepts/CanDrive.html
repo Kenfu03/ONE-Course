@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>You Can Drive?</h3>
+      <br>
+      <script>
+        function jumpLine() {
+          document.write("<br>");
+          document.write("<br>");
+        };
+
+        function print(text) {
+          document.write(text);
+          jumpLine();
+        };
+
+        var age = parseInt(prompt("Whats your Age?"));
+        var license = prompt("You have license?, Yes or No");
+
+        if (age >= 18 && license == "Yes"){
+          print("Yes, you can drive");
+        }
+
+        else {
+          print("NO, you cant drive");
+        }
+
+      </script>
+    </main>
+  </body>
+</html>

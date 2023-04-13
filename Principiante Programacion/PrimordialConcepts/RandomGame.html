@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>Random Game</h3>
+      <br>
+      <script>
+        function jumpLine() {
+          document.write("<br>");
+          document.write("<br>");
+        };
+
+        function print(text) {
+          document.write(text);
+          jumpLine();
+        };
+
+        function randomNumber(num) {
+          return(Math.round(Math.random()*num));
+        };
+
+        var maxNumber = parseInt(prompt("Maximum number you want to play with"));
+        var pcNumber = randomNumber(maxNumber);
+        var playerNumber = parseInt(prompt("Choose a number between 0 and " + pcNumber));
+
+        if (playerNumber == pcNumber) {
+          print("You won")
+        }
+
+        else {
+          print("You lose")
+          if (playerNumber > pcNumber) {
+            print("The winner number was lower than your number")
+          }
+
+          else {
+            print("The winner number was higer than your number")
+          }
+        }
+
+      </script>
+    </main>
+  </body>
+</html>
