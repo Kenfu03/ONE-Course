@@ -1,9 +1,6 @@
 principalLetters = ["a", "e", "i", "o", "u"];
 changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 
-var decryptedText = "hola como esta";
-var encryptedText = "hoberlai cobermober enterstai";
-
 function serchArrays(letter, array) {
   for (var i = 0; i < array.length; i++) {
     if (letter === array[i]) {
@@ -27,9 +24,7 @@ function encrypt(text) {
     }
   }
 
-  console.log("Encrypted");
-  console.log(text);
-  console.log(encryptedText);
+  document.getElementById("workingText").value = encryptedText;
 }
 
 function decrypt(text) {
@@ -38,7 +33,7 @@ function decrypt(text) {
 
   while (i < text.length) {
     if (serchArrays(text[i], principalLetters)) {
-      for (var j = 0; j < principalLetters.length; j++){
+      for (var j = 0; j < principalLetters.length; j++) {
         if (text[i] === principalLetters[j]) {
           decryptedText += principalLetters[j];
           i += changeLetters[j].length;
@@ -50,10 +45,30 @@ function decrypt(text) {
     }
   }
 
-  console.log("Decrypted");
-  console.log(text);
-  console.log(decryptedText);
+  document.getElementById("workingText").value = decryptedText;
 }
 
-encrypt(decryptedText);
-decrypt(encryptedText);
+function encryptFunction() {
+  text = document.getElementById("text").textContent;
+  document.getElementById("text").innerText = "";
+  document.getElementById("noText").style.display = "none";
+  document.getElementById("withText").style.display = "flex";
+  encrypt(text);
+}
+
+function decryptFunction() {
+  text = document.getElementById("text").textContent;
+  document.getElementById("text").innerText = "";
+  document.getElementById("noText").style.display = "none";
+  document.getElementById("withText").style.display = "flex";
+  decrypt(text);
+}
+
+function copyText() {
+  var copyText = document.getElementById("workingText");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  navigator.clipboard.writeText(copyText.value);
+}

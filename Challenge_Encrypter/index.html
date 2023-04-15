@@ -11,28 +11,49 @@
     <main>
       <div class="main-container">
         <div class="img-container">
-          <img src="/assets/img/logo.png" alt="logo App">
+          <img src="/assets/img/logo.png" alt="logo App" />
         </div>
         <div class="form-container">
           <div class="input-container">
             <!-- <input type="text" placeholder="Ingrese el texto aqui..."> -->
-            <span class="textarea" role="textbox" contenteditable></span>
+            <span
+              id="text"
+              class="textarea"
+              role="textbox"
+              contenteditable
+            ></span>
           </div>
           <div class="decorationP">
-            <img src="assets/img/errorLogo.svg" alt="">
+            <img src="assets/img/errorLogo.svg" alt="" />
             <p>Solo letras minúsculas y sin acentos</p>
           </div>
           <div class="button-container">
-            <button class="btn_encriptar">Encriptar</button>
-            <button class="btn_desencriptar">Desencriptar</button>
+            <button onclick="encryptFunction()" class="btn_encriptar">
+              Encriptar
+            </button>
+            <button onclick="decryptFunction()" class="btn_desencriptar">
+              Desencriptar
+            </button>
           </div>
         </div>
         <div class="info-container">
-            <img src="assets/img/enigmaMachine.png" alt="Maquina Enigma">
+          <div class="noText" id="noText">
+            <img src="assets/img/enigmaMachine.png" alt="Maquina Enigma" />
             <div class="text_info">
-                <h2>Ningún mensaje fue <br> encontrado</h2>
-                <p>Ingresa el texto que desees encriptar o <br> desencriptar.</p>
+              <h2>
+                Ningún mensaje fue <br />
+                encontrado
+              </h2>
+              <p>
+                Ingresa el texto que desees encriptar o <br />
+                desencriptar.
+              </p>
             </div>
+          </div>
+          <div class="withText" id="withText" style="display: none">
+            <input readonly="true" id="workingText" />
+            <button onclick="copyText()">Copiar</button>
+          </div>
         </div>
       </div>
     </main>
