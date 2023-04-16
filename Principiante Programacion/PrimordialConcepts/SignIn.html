@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>Inicio de Sesion</h3>
+      <br>
+      <script>
+        var inicioDeSesionRegistrado = "alura";
+        var contrasenhaRegistrada = "alura321";
+        var trys = 3;
+
+        for (var i=0; i<3; i++){
+          var inicioDeSesionIngresado = prompt("Ingrese su usuario");
+          var contrasenhaIngresada = prompt("Ingrese su contraseña");
+
+          if( inicioDeSesionRegistrado == inicioDeSesionIngresado && contrasenhaRegistrada == contrasenhaIngresada ) {
+              alert("Bienvenido al sistema " + inicioDeSesionIngresado);
+              break;
+          } else {
+              alert("inicio de sesión inválido. Favor intente de nuevo");
+          }
+        }
+
+
+      </script>
+    </main>
+  </body>
+</html>

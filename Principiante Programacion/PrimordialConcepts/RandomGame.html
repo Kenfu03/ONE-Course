@@ -25,22 +25,31 @@
 
         var maxNumber = parseInt(prompt("Maximum number you want to play with"));
         var pcNumber = randomNumber(maxNumber);
-        var playerNumber = parseInt(prompt("Choose a number between 0 and " + pcNumber));
+        var trys = 3;
+        var i = 1;
 
-        if (playerNumber == pcNumber) {
-          print("You won")
-        }
+        while (i <= trys) {
 
-        else {
-          print("You lose")
-          if (playerNumber > pcNumber) {
-            print("The winner number was lower than your number")
+          var playerNumber = parseInt(prompt("Choose a number between 0 and " + maxNumber));
+
+          if (playerNumber == pcNumber) {
+            alert("You won, the winner number was: " + pcNumber);
+            break;
           }
 
           else {
-            print("The winner number was higer than your number")
+            if (playerNumber > pcNumber) {
+              alert("You lose, the winner number was lower than your number. You have " + (trys-i).toString() + " more trys")
+            }
+
+            else {
+              alert("You lose, the winner number was higer than your number. You have " + (trys-i).toString() + " more trys")
+            }
           }
+          i++;
         }
+
+
 
       </script>
     </main>

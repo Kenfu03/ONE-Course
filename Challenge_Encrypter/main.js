@@ -4,7 +4,7 @@ changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 function serchArrays(letter, array) {
   for (var i = 0; i < array.length; i++) {
     if (letter === array[i]) {
-      return true;
+      return [true, i];
     }
   }
   return false;
@@ -12,13 +12,12 @@ function serchArrays(letter, array) {
 
 function encrypt(text) {
   var encryptedText = "";
+  var position;
 
   for (var i = 0; i < text.length; i++) {
-    if (serchArrays(text[i], principalLetters)) {
-      for (var j = 0; j < principalLetters.length; j++)
-        if (text[i] === principalLetters[j]) {
-          encryptedText += changeLetters[j];
-        }
+    position = serchArrays(text[i], principalLetters);
+    if (position[0]) {
+      encryptedText += changeLetters[position[1]];
     } else {
       encryptedText += text[i];
     }
@@ -29,16 +28,14 @@ function encrypt(text) {
 
 function decrypt(text) {
   var i = 0; //contador
-  decryptedText = "";
+  var decryptedText = "";
+  var position;
 
   while (i < text.length) {
-    if (serchArrays(text[i], principalLetters)) {
-      for (var j = 0; j < principalLetters.length; j++) {
-        if (text[i] === principalLetters[j]) {
-          decryptedText += principalLetters[j];
-          i += changeLetters[j].length;
-        }
-      }
+    position = serchArrays(text[i], principalLetters);
+    if (position[0]) {
+      decryptedText += principalLetters[position[1]];
+      i += changeLetters[position[1]].length;
     } else {
       decryptedText += text[i];
       i++;

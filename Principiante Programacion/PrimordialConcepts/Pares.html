@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>Random Game</h3>
+      <br>
+      <script>
+        function jumpLine() {
+          document.write("<br>");
+          document.write("<br>");
+        };
+
+        function print(text) {
+          document.write(text);
+          jumpLine();
+        };
+
+        function pares(maxNum) {
+          var i = 0;
+
+          while (i <= maxNum) {
+            print(i)
+            i+=2;
+          }
+
+          print ("Finish")
+        }
+
+        pares(100)
+
+      </script>
+    </main>
+  </body>
+</html>

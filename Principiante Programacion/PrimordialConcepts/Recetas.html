@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Conceptos Primordiales AULA 1 Practice</title>
+  </head>
+  <body>
+    <main>
+      <h3>Recetas de Armando</h3>
+      <br>
+      <script>
+        var ingredientes = [];
+        var cantidad = parseInt(prompt("¿Cuántos ingredientes vas a añadir?"));
+        var contador = 1;
+        var findFlag = false;
+
+        while( contador <= cantidad) {
+            var ingrediente = prompt("Informe el ingrediente " + contador);
+            for (var i=0; i<ingredientes.length;i++){
+              if (ingredientes[i] == ingrediente) {
+                findFlag=true;
+                alert("No se puede a;adir el mismo ingrediente")
+                break;
+              }
+            }
+            if (!findFlag) {
+              ingredientes.push(ingrediente);
+              contador++;
+            }
+            findFlag = false;
+
+        }
+
+        document.write(ingredientes);
+
+
+      </script>
+    </main>
+  </body>
+</html>
