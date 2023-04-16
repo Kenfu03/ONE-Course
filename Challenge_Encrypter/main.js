@@ -1,5 +1,5 @@
-principalLetters = ["a", "e", "i", "o", "u"];
-changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
+const principalLetters = ["a", "e", "i", "o", "u"];
+const changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 
 function serchArrays(letter, array) {
   for (var i = 0; i < array.length; i++) {
