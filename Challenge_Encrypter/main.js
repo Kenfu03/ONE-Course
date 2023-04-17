@@ -2,7 +2,7 @@ const principalLetters = ["a", "e", "i", "o", "u"];
 const changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 
 function serchArrays(letter, array) {
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     if (letter === array[i]) {
       return [true, i];
     }
@@ -11,10 +11,10 @@ function serchArrays(letter, array) {
 }
 
 function encrypt(text) {
-  var encryptedText = "";
-  var position;
+  let encryptedText = "";
+  let position;
 
-  for (var i = 0; i < text.length; i++) {
+  for (let i = 0; i < text.length; i++) {
     position = serchArrays(text[i], principalLetters);
     if (position[0]) {
       encryptedText += changeLetters[position[1]];
@@ -23,13 +23,13 @@ function encrypt(text) {
     }
   }
 
-  document.getElementById("workingText").value = encryptedText;
+  document.getElementById("workingText").textContent = encryptedText;
 }
 
 function decrypt(text) {
-  var i = 0; //contador
-  var decryptedText = "";
-  var position;
+  let i = 0; //contador
+  let decryptedText = "";
+  let position;
 
   while (i < text.length) {
     position = serchArrays(text[i], principalLetters);
@@ -42,30 +42,36 @@ function decrypt(text) {
     }
   }
 
-  document.getElementById("workingText").value = decryptedText;
+  document.getElementById("workingText").textContent = decryptedText;
 }
 
 function encryptFunction() {
   text = document.getElementById("text").textContent;
   document.getElementById("text").innerText = "";
-  document.getElementById("noText").style.display = "none";
-  document.getElementById("withText").style.display = "flex";
-  encrypt(text);
+  if (text != "") {
+    document.getElementById("noText").style.display = "none";
+    document.getElementById("withText").style.display = "flex";
+    encrypt(text);
+  } else {
+    alert("Debe agregar algun texto");
+  }
 }
 
 function decryptFunction() {
   text = document.getElementById("text").textContent;
   document.getElementById("text").innerText = "";
-  document.getElementById("noText").style.display = "none";
-  document.getElementById("withText").style.display = "flex";
-  decrypt(text);
+  if (text != "") {
+    document.getElementById("noText").style.display = "none";
+    document.getElementById("withText").style.display = "flex";
+    decrypt(text);
+  } else {
+    alert("Debe agregar algun texto");
+  }
 }
 
 function copyText() {
   var copyText = document.getElementById("workingText");
 
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-
-  navigator.clipboard.writeText(copyText.value);
+  navigator.clipboard.writeText(copyText.textContent);
+  alert("Texto Copiado")
 }

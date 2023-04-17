@@ -51,8 +51,14 @@
             </div>
           </div>
           <div class="withText" id="withText" style="display: none">
-            <input readonly="true" id="workingText" />
-            <button onclick="copyText()">Copiar</button>
+            <span
+              id="workingText"
+              class="workingText"
+              role="textbox"
+            ></span>
+            <div class="btnCopy-container">
+              <button onclick="copyText()">Copiar</button>
+            </div>
           </div>
         </div>
       </div>
