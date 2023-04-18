@@ -1,6 +1,8 @@
 const principalLetters = ["a", "e", "i", "o", "u"];
 const changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 
+const acceptLetters = "abcdefghyjklmnñopqrstuvwxyz ";
+
 function serchArrays(letter, array) {
   for (let i = 0; i < array.length; i++) {
     if (letter === array[i]) {
@@ -46,26 +48,42 @@ function decrypt(text) {
 }
 
 function encryptFunction() {
-  text = document.getElementById("text").textContent;
-  document.getElementById("text").innerText = "";
-  if (text != "") {
-    document.getElementById("noText").style.display = "none";
-    document.getElementById("withText").style.display = "flex";
-    encrypt(text);
+  if (validateText()) {
+    document.getElementById("warning2").style.color = "black";
+    document.getElementById("warning1").style.animationName = "noWarning";
+    text = document.getElementById("text").textContent;
+    document.getElementById("text").innerText = "";
+    if (text != "") {
+      document.getElementById("noText").style.display = "none";
+      document.getElementById("withText").style.display = "flex";
+      encrypt(text);
+    } else {
+      alert("Debe agregar algun texto");
+    }
   } else {
-    alert("Debe agregar algun texto");
+    document.getElementById("warning2").style.color = "#D8EDF2";
+    document.getElementById("warning1").style.animationName = "warning";
+
   }
 }
 
 function decryptFunction() {
-  text = document.getElementById("text").textContent;
-  document.getElementById("text").innerText = "";
-  if (text != "") {
-    document.getElementById("noText").style.display = "none";
-    document.getElementById("withText").style.display = "flex";
-    decrypt(text);
+  if (validateText()) {
+    document.getElementById("warning2").style.color = "black";
+    document.getElementById("warning1").style.animationName = "noWarning";
+    text = document.getElementById("text").textContent;
+    document.getElementById("text").innerText = "";
+    if (text != "") {
+      document.getElementById("noText").style.display = "none";
+      document.getElementById("withText").style.display = "flex";
+      decrypt(text);
+    } else {
+      alert("Debe agregar algun texto");
+    }
   } else {
-    alert("Debe agregar algun texto");
+    document.getElementById("warning2").style.color = "#D8EDF2";
+    document.getElementById("warning1").style.animationName = "warning";
+
   }
 }
 
@@ -73,5 +91,19 @@ function copyText() {
   var copyText = document.getElementById("workingText");
 
   navigator.clipboard.writeText(copyText.textContent);
-  alert("Texto Copiado")
+  alert("Texto Copiado");
+}
+
+function validateText() {
+  let text = document.getElementById("text").textContent;
+  var cleanedText = "";
+
+  for (let i = 0; i < text.length; i++) {
+    if (serchArrays(text[i], acceptLetters)[0]) {
+      cleanedText += text[i];
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
