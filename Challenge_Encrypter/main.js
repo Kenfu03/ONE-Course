@@ -1,7 +1,7 @@
 const principalLetters = ["a", "e", "i", "o", "u"];
 const changeLetters = ["ai", "enter", "imes", "ober", "ufat"];
 
-const acceptLetters = "abcdefghyjklmnñopqrstuvwxyz ";
+const acceptLetters = "abcdefghijklmnñopqrstuvwxyz ";
 
 function serchArrays(letter, array) {
   for (let i = 0; i < array.length; i++) {
