@@ -24,9 +24,9 @@
       "purple",
       "lightgray",
     ];
+    const targetRadio = 40;
     var xRandom;
     var yRandom;
-    var targetRadio = 40;
 
     function drawCirlce(x, y, radio, color) {
       pen.fillStyle = color;
@@ -47,32 +47,34 @@
     function createTarget(x, y, initialRadio) {
       randomColor = colors[alterarColor()];
       drawCirlce(x, y, initialRadio, randomColor);
-      drawCirlce(x, y, initialRadio-15, "white");
-      drawCirlce(x, y, initialRadio-25, randomColor);
+      drawCirlce(x, y, initialRadio - 15, "white");
+      drawCirlce(x, y, initialRadio - 25, randomColor);
     }
 
     function shootGame() {
-      clearScreen()
+      clearScreen();
       xRandom = Math.floor(Math.random() * width);
       yRandom = Math.floor(Math.random() * height);
-      createTarget(xRandom, yRandom, targetRadio)
+      createTarget(xRandom, yRandom, targetRadio);
     }
 
-    function bullet(event){
+    function bullet(event) {
       let xClick = event.pageX - canva.offsetLeft;
       let yClick = event.pageY - canva.offsetTop;
-      let radio = targetRadio-25
+      let radio = targetRadio - 25;
 
-      if ((xClick < xRandom + radio) && (xClick > xRandom - radio) && (yClick > yRandom - radio) && (yClick < yRandom + radio)){
+      if (
+        xClick < xRandom + radio &&
+        xClick > xRandom - radio &&
+        yClick > yRandom - radio &&
+        yClick < yRandom + radio
+      ) {
         alert("Lo pegó");
       }
     }
 
     canva.onclick = bullet;
 
-    setInterval(shootGame,1000);
-    
-
-
+    setInterval(shootGame, 1000);
   </script>
 </html>
