@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400"> </canvas>
+    </main>
+  </body>
+  <script>
+    var canva = document.querySelector("canvas");
+    var pen = canva.getContext("2d");
+
+    const colores = ["blue", "green", "yellow", "red", "purple"];
+    var indexColor = 0;
+    var canDraw = false;
+    let colorHeight = 80;
+
+    pen.strokeStyle = "black";
+    pen.strokeRect(55, 0, 545, 400);
+
+    function drawRect(x, y, base, altura, color) {
+      pen.fillStyle = color;
+      pen.fillRect(x, y, base, altura);
+      pen.strokeStyle = "black";
+      pen.strokeRect(x, y, base, altura);
+    }
+
+    function drawCircle(event) {
+      var x = event.pageX - canva.offsetLeft;
+      var y = event.pageY - canva.offsetTop;
+
+      if (x > 60) {
+        if (canDraw) {
+          pen.fillStyle = colores[indexColor];
+          pen.beginPath();
+          pen.arc(x, y, 5, 0, 2 * 3.14);
+          pen.fill();
+        }
+      }
+    }
+
+    function changeColor(event) {
+      var x = event.pageX - canva.offsetLeft;
+      var y = event.pageY - canva.offsetTop;
+      if (x < 50) {
+        if (y < colorHeight) {
+          indexColor = 0;
+        } else if (y < colorHeight * 2) {
+          indexColor = 1;
+        } else if (y < colorHeight * 3) {
+          indexColor = 2;
+        } else if (y < colorHeight * 4) {
+          indexColor = 3;
+        } else {
+          indexColor = 4;
+        }
+        clearScreen();
+        colorPallete();
+        createSelection(x,y,10);
+      }
+    }
+
+    function drawSelection(x, y, radio, color) {
+      pen.fillStyle = color;
+      pen.beginPath();
+      pen.arc(x, y, radio, 0, 2 * Math.PI);
+      pen.fill();
+    }
+
+    function clearScreen() {
+      pen.clearRect(0, 0, 50, 400);
+    }
+
+    function createSelection(x, y, initialRadio) {
+      drawSelection(x, y, initialRadio, "black");
+      drawSelection(x, y, initialRadio/2, "white");
+    }
+
+    function colorPallete() {
+      let yPosition = 0;
+      for (let i = 0; i < colores.length; i++) {
+        drawRect(0, yPosition, 50, colorHeight, colores[i]);
+        yPosition += colorHeight;
+      }
+    }
+
+    canva.onmousemove = drawCircle;
+
+    function canDrawHandle() {
+      canDraw = true;
+    }
+
+    function cantDrawHandle() {
+      canDraw = false;
+    }
+
+    canva.onmousedown = canDrawHandle;
+
+    canva.onmouseup = cantDrawHandle;
+
+    canva.onclick = changeColor;
+
+    colorPallete();
+  </script>
+</html>
