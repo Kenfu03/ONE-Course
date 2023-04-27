@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400"> </canvas>
+    </main>
+  </body>
+  <script>
+    const canva = document.querySelector("canvas");
+    const pen = canva.getContext("2d");
+    const width = canva.width;
+    const height = canva.height;
+    const colors = [
+      "lightblue",
+      "red",
+      "lightgreen",
+      "darkgray",
+      "pink",
+      "green",
+      "purple",
+      "lightgray",
+    ];
+    var xRandom;
+    var yRandom;
+    var targetRadio = 40;
+
+    function drawCirlce(x, y, radio, color) {
+      pen.fillStyle = color;
+      pen.beginPath();
+      pen.arc(x, y, radio, 0, 2 * Math.PI);
+      pen.fill();
+    }
+
+    function alterarColor() {
+      randomNumber = Math.floor(Math.random() * colors.length);
+      return randomNumber;
+    }
+
+    function clearScreen() {
+      pen.clearRect(0, 0, 600, 400);
+    }
+
+    function createTarget(x, y, initialRadio) {
+      randomColor = colors[alterarColor()];
+      drawCirlce(x, y, initialRadio, randomColor);
+      drawCirlce(x, y, initialRadio-15, "white");
+      drawCirlce(x, y, initialRadio-25, randomColor);
+    }
+
+    function shootGame() {
+      clearScreen()
+      xRandom = Math.floor(Math.random() * width);
+      yRandom = Math.floor(Math.random() * height);
+      createTarget(xRandom, yRandom, targetRadio)
+    }
+
+    function bullet(event){
+      let xClick = event.pageX - canva.offsetLeft;
+      let yClick = event.pageY - canva.offsetTop;
+      let radio = targetRadio-25
+
+      if ((xClick < xRandom + radio) && (xClick > xRandom - radio) && (yClick > yRandom - radio) && (yClick < yRandom + radio)){
+        alert("Lo pegó");
+      }
+    }
+
+    canva.onclick = bullet;
+
+    setInterval(shootGame,1000);
+    
+
+
+  </script>
+</html>
