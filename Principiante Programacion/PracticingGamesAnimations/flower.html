@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400">
+      </canvas>
+
+    </main>
+  </body>
+  <script>
+    let canva = document.querySelector("canvas");
+    let pen = canva.getContext("2d");
+
+
+    
+    function drawCircle(x, y, radio, color) {
+      
+      pen.fillStyle = color;
+      pen.beginPath();
+      pen.arc(x, y, radio, 0, 2*3.14);
+      pen.fill();
+
+    }
+
+    function drawFlower(x, y, radio) {
+      drawCircle(x,y,radio,"red");
+      drawCircle(x,y-radio*2,radio,"yellow");
+      drawCircle(x,y+radio*2,radio,"blue");
+      drawCircle(x-radio*2,y,radio,"orange");
+      drawCircle(x+radio*2,y,radio,"black");
+
+    }
+
+    drawFlower(300, 200, 20);
+
+
+
+    
+
+  </script>
+</html>

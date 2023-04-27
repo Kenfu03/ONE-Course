@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="450" height="400">
+      </canvas>
+
+    </main>
+  </body>
+  <script>
+    let canva = document.querySelector("canvas");
+    let pen = canva.getContext("2d");
+
+    pen.fillStyle = "darkgreen";
+    pen.fillRect(0,0,600,400);
+
+    pen.fillStyle = "black";
+    pen.fillRect(75, 75, 100, 100);
+    pen.fillRect(255, 75, 100, 100);
+    pen.fillRect(175, 175, 80, 110);
+    pen.fillRect(125, 220, 50, 120);
+    pen.fillRect(255, 220, 50, 120);
+
+  </script>
+</html>

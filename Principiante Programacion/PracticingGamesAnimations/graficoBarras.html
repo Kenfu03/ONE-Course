@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400">
+      </canvas>
+
+    </main>
+  </body>
+  <script>
+    var canva = document.querySelector("canvas");
+    var pen = canva.getContext("2d");
+
+    const serie2009 = [6, 47, 41, 3, 3];
+    const serie2019 = [81, 9, 3, 3, 4];
+    const colores = ["blue","green","yellow", "red","gray"];
+
+    
+    function drawRect(x, y, base, altura, color) {
+
+      pen.fillStyle=color;
+      pen.fillRect(x,y, base, altura);
+      pen.strokeStyle="black";
+      pen.strokeRect(x,y, base, altura);
+    }
+
+    function printText(x , y, text) {
+
+      pen.font="15px Georgia";
+      pen.fillStyle="black";
+      pen.fillText(text, x, y);    
+    }
+
+    function drawBarGraphic(x, y, numbers, colors, text) {
+      var totalHeight = 0;
+
+      printText(x, y-10, text);
+
+      for (var i=0; i < numbers.length ; i++){
+        drawRect(x, y + totalHeight*2, 100, numbers[i]*2, colors[i]);
+        totalHeight += numbers[i];
+        }
+      }
+
+    drawBarGraphic(10, 30, serie2009, colores, "Grafico 2009");
+    drawBarGraphic(200, 30, serie2019, colores, "Grafico 2019");
+
+
+    
+
+  </script>
+</html>

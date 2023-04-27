@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400">
+      </canvas>
+
+    </main>
+  </body>
+  <script>
+    var canva = document.querySelector("canvas");
+    var pen = canva.getContext("2d");
+    const colors = ["blue", "red", "green"];
+    var indice = 0;
+
+    pen.fillStyle = "grey";
+    pen.fillRect(0,0,600,400); 
+
+    function drawCirlce(event){
+        const x = event.pageX - canva.offsetLeft;
+        const y = event.pageY - canva.offsetTop;
+
+        pen.fillStyle = colors[indice];
+        pen.beginPath();
+        pen.arc(x,y,10,0,2*3.14);
+        pen.fill();
+
+        console.log(x + "," + y);        
+    }
+
+    canva.onclick = drawCirlce;
+
+    function alterarColor(event) {
+      indice++;
+      if (indice >= colors.length){
+        indice = 0;
+      }
+      return false;
+    }
+
+    canva.oncontextmenu = alterarColor;
+
+
+    
+  </script>
+</html>

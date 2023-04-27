@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <main>
+      <canvas width="600" height="400">
+      </canvas>
+
+    </main>
+  </body>
+  <script>
+    var canva = document.querySelector("canvas");
+    var pen = canva.getContext("2d");
+    const colors = ["blue", "red", "green"];
+    var indice = 0;
+    var circlePosition = 20;
+    var right = true;
+ 
+
+    function drawCirlce(x, y, radio){
+
+        pen.fillStyle = colors[indice];
+        pen.beginPath();
+        pen.arc(x,y,10,0,2*3.14);
+        pen.fill();
+
+        console.log(x + "," + y);        
+    }
+
+    function alterarColor(event) {
+      indice++;
+      if (indice >= colors.length){
+        indice = 0;
+      }
+      return false;
+    }
+
+    function clearScreen(){
+      pen.clearRect(0,0,600,400);
+
+    }
+
+    function setDirection(){
+      if (circlePosition == 580){
+        right = !right;
+      }
+      else if (circlePosition == 20){
+        right = !right;
+      }
+    }
+
+    function animateCircle(){
+      clearScreen();
+      drawCirlce(circlePosition, 20, 20);
+      if (right){
+        circlePosition++;
+      }
+      else {
+        circlePosition--;
+      }
+      setDirection();
+
+    }
+
+    setInterval(animateCircle,5)
+
+
+    canva.oncontextmenu = alterarColor;
+
+
+    
+  </script>
+</html>
