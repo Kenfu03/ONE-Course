@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Optional;
 
 import javax.swing.JButton;
@@ -182,11 +183,27 @@ public class StockControlFrame extends JFrame{
 
     Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
             .ifPresentOrElse(fila -> {
-              Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-              String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
-              String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+              Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
+              String nombre = modelo.getValueAt(tabla.getSelectedRow(), 1).toString();
+              String descripcion = modelo.getValueAt(tabla.getSelectedRow(), 2).toString();
+              Integer cantidad;
 
-              this.productoController.modificar(nombre, descripcion, id);
+              try {
+                cantidad = Integer.valueOf(tabla.getValueAt(tabla.getSelectedRow(), 3).toString());
+              } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, String
+                        .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
+                return;
+              }
+
+              int result;
+              try {
+                result = this.productoController.modificar(nombre, descripcion, cantidad, id);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
+
+              JOptionPane.showMessageDialog(this, "Se modificaron " + result + " items");
             }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
   }
 
@@ -198,13 +215,17 @@ public class StockControlFrame extends JFrame{
 
     Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
             .ifPresentOrElse(fila -> {
-              Integer id = (Integer) modelo.getValueAt(tabla.getSelectedRow(), 0);
-
-              this.productoController.eliminar(id);
+              Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
+              int result;
+              try {
+                result = this.productoController.eliminar(id);
+              } catch (SQLException e) {
+                throw new RuntimeException(e);
+              }
 
               modelo.removeRow(tabla.getSelectedRow());
 
-              JOptionPane.showMessageDialog(this, "Item eliminado con éxito!");
+              JOptionPane.showMessageDialog(this, "Se eliminó " + result + " item");
             }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
   }
 
@@ -224,21 +245,27 @@ public class StockControlFrame extends JFrame{
       return;
     }
 
-    Integer cantidadInt;
-
     try {
-      cantidadInt = Integer.parseInt(textoCantidad.getText());
+      Integer.parseInt(textoCantidad.getText());
     } catch (NumberFormatException e) {
       JOptionPane.showMessageDialog(this, String
               .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
       return;
     }
 
-    // TODO
-    var producto = new Object[] { textoNombre.getText(), textoDescripcion.getText(), cantidadInt };
+    var producto = new HashMap<String, String>();
+    producto.put("NOMBRE", textoNombre.getText());
+    producto.put("DESCRIPCION", textoDescripcion.getText());
+    producto.put("CANTIDAD", textoCantidad.getText());
+
     var categoria = comboCategoria.getSelectedItem();
 
-    this.productoController.guardar(producto);
+
+    try {
+      this.productoController.guardar(producto);
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
 
     JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 

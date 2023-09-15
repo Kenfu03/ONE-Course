@@ -2,6 +2,7 @@ package com.alura.jdbc.tests;
 
 import com.alura.jdbc.factory.ConnectionFactory;
 
+import java.net.Inet4Address;
 import java.sql.Connection;
 import java.sql.SQLException;
 
