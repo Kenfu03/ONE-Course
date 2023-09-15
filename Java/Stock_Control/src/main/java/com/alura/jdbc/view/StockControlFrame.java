@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.alura.jdbc.controller.CategoriaController;
 import com.alura.jdbc.controller.ProductoController;
+import com.alura.jdbc.modelo.Producto;
 
 public class StockControlFrame extends JFrame{
   private static final long serialVersionUID = 1L;
@@ -245,18 +246,19 @@ public class StockControlFrame extends JFrame{
       return;
     }
 
+    int cantidadInt;
+
     try {
-      Integer.parseInt(textoCantidad.getText());
+      cantidadInt = Integer.parseInt(textoCantidad.getText());
     } catch (NumberFormatException e) {
       JOptionPane.showMessageDialog(this, String
               .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
       return;
     }
 
-    var producto = new HashMap<String, String>();
-    producto.put("NOMBRE", textoNombre.getText());
-    producto.put("DESCRIPCION", textoDescripcion.getText());
-    producto.put("CANTIDAD", textoCantidad.getText());
+    var producto = new Producto(textoNombre.getText(),
+            textoDescripcion.getText(),
+            cantidadInt);
 
     var categoria = comboCategoria.getSelectedItem();
 

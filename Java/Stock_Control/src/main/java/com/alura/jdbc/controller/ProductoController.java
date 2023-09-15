@@ -1,6 +1,7 @@
 package com.alura.jdbc.controller;
 
 import com.alura.jdbc.factory.ConnectionFactory;
+import com.alura.jdbc.modelo.Producto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -75,12 +76,7 @@ public class ProductoController {
     }
   }
 
-  public void guardar(Map<String, String> producto) throws SQLException {
-    String nombre = producto.get("NOMBRE");
-    String descripcion = producto.get("DESCRIPCION");
-    Integer cantidad = Integer.valueOf(producto.get("CANTIDAD"));
-    Integer cantidadMaxima = 50;
-
+  public void guardar(Producto producto) throws SQLException {
 
     final Connection con = new ConnectionFactory().getMyConnection();
     try (con) {
@@ -92,11 +88,7 @@ public class ProductoController {
               Statement.RETURN_GENERATED_KEYS);
 
       try (statement) {
-        do {
-          int cantidadToSave = Math.min(cantidad, cantidadMaxima);
-          executeGuardar(statement, nombre, descripcion, cantidadToSave);
-          cantidad -= cantidadMaxima;
-        } while (cantidad > 0);
+        executeGuardar(statement, producto);
 
         con.commit();
       } catch (Exception e) {
@@ -105,11 +97,10 @@ public class ProductoController {
     }
   }
 
-  private void executeGuardar(PreparedStatement statement, String nombre, String descripcion,
-                              Integer cantidad) throws SQLException {
-    statement.setString(1, nombre);
-    statement.setString(2, descripcion);
-    statement.setInt(3, cantidad);
+  private void executeGuardar(PreparedStatement statement, Producto producto) throws SQLException {
+    statement.setString(1, producto.getNombre());
+    statement.setString(2, producto.getDescripcion());
+    statement.setInt(3, producto.getCantidad());
 
     statement.execute();
 
@@ -117,7 +108,8 @@ public class ProductoController {
 
     try (resultSet) {
       while (resultSet.next()) {
-        System.out.println("Fue insertado el producto de ID " + resultSet.getInt(1));
+        producto.setId(resultSet.getInt(1));
+        System.out.println("Fue insertado el producto " + producto.toString());
       }
     }
   }
