@@ -21,7 +21,7 @@ import com.alura.jdbc.controller.CategoriaController;
 import com.alura.jdbc.controller.ProductoController;
 import com.alura.jdbc.modelo.Producto;
 
-public class StockControlFrame extends JFrame{
+public class StockControlFrame extends JFrame {
   private static final long serialVersionUID = 1L;
 
   private JLabel labelNombre, labelDescripcion, labelCantidad, labelCategoria;
@@ -184,25 +184,20 @@ public class StockControlFrame extends JFrame{
 
     Optional.ofNullable(modelo.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn()))
             .ifPresentOrElse(fila -> {
-              Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
-              String nombre = modelo.getValueAt(tabla.getSelectedRow(), 1).toString();
-              String descripcion = modelo.getValueAt(tabla.getSelectedRow(), 2).toString();
-              Integer cantidad;
-
+              Producto producto;
               try {
-                cantidad = Integer.valueOf(tabla.getValueAt(tabla.getSelectedRow(), 3).toString());
+                 producto = new Producto(
+                        Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString()),
+                        modelo.getValueAt(tabla.getSelectedRow(), 1).toString(),
+                        modelo.getValueAt(tabla.getSelectedRow(), 2).toString(),
+                        Integer.valueOf(tabla.getValueAt(tabla.getSelectedRow(), 3).toString()));
               } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, String
                         .format("El campo cantidad debe ser numérico dentro del rango %d y %d.", 0, Integer.MAX_VALUE));
                 return;
               }
 
-              int result;
-              try {
-                result = this.productoController.modificar(nombre, descripcion, cantidad, id);
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
+              int result = this.productoController.modificar(producto);
 
               JOptionPane.showMessageDialog(this, "Se modificaron " + result + " items");
             }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
@@ -218,11 +213,8 @@ public class StockControlFrame extends JFrame{
             .ifPresentOrElse(fila -> {
               Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
               int result;
-              try {
-                result = this.productoController.eliminar(id);
-              } catch (SQLException e) {
-                throw new RuntimeException(e);
-              }
+
+              result = this.productoController.eliminar(id);
 
               modelo.removeRow(tabla.getSelectedRow());
 
@@ -231,13 +223,13 @@ public class StockControlFrame extends JFrame{
   }
 
   private void cargarTabla() {
-    try {
-      var productos = this.productoController.listar();
-      productos.forEach(producto -> modelo.addRow(new Object[]{producto.get("ID"), producto.get("NOMBRE"),
-              producto.get("DESCRIPCION"), producto.get("CANTIDAD")}));
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    var productos = this.productoController.listar();
+    productos.forEach(producto -> modelo.addRow(
+            new Object[]{
+                    producto.getId(),
+                    producto.getNombre(),
+                    producto.getDescripcion(),
+                    producto.getCantidad()}));
   }
 
   private void guardar() {
@@ -262,12 +254,7 @@ public class StockControlFrame extends JFrame{
 
     var categoria = comboCategoria.getSelectedItem();
 
-
-    try {
-      this.productoController.guardar(producto);
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
-    }
+    this.productoController.guardar(producto);
 
     JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 

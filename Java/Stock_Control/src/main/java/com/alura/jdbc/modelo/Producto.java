@@ -9,10 +9,20 @@ public class Producto {
     this.cantidad = cantidad;
   }
 
+  public Producto(Integer id, String nombre, String descripcion, Integer cantidad){
+    this.id = id;
+    this.nombre = nombre;
+    this.descripcion = descripcion;
+    this.cantidad = cantidad;
+  }
+
   public void setId(Integer id) {
     this.id = id;
   }
 
+  public Integer getId() {
+    return id;
+  }
   public String getNombre() {
     return nombre;
   }
