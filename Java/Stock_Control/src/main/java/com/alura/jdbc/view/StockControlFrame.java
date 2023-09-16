@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.alura.jdbc.controller.CategoriaController;
 import com.alura.jdbc.controller.ProductoController;
+import com.alura.jdbc.modelo.Categoria;
 import com.alura.jdbc.modelo.Producto;
 
 public class StockControlFrame extends JFrame {
@@ -26,7 +27,7 @@ public class StockControlFrame extends JFrame {
 
   private JLabel labelNombre, labelDescripcion, labelCantidad, labelCategoria;
   private JTextField textoNombre, textoDescripcion, textoCantidad;
-  private JComboBox<Object> comboCategoria;
+  private JComboBox<Categoria> comboCategoria;
   private JButton botonGuardar, botonModificar, botonLimpiar, botonEliminar, botonReporte;
   private JTable tabla;
   private DefaultTableModel modelo;
@@ -98,11 +99,10 @@ public class StockControlFrame extends JFrame {
     textoDescripcion = new JTextField();
     textoCantidad = new JTextField();
     comboCategoria = new JComboBox<>();
-    comboCategoria.addItem("Elige una Categoría");
+    comboCategoria.addItem(new Categoria(0, "Elige una categoria"));
 
-    // TODO
     var categorias = this.categoriaController.listar();
-    // categorias.forEach(categoria -> comboCategoria.addItem(categoria));
+    categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
     textoNombre.setBounds(10, 25, 265, 20);
     textoDescripcion.setBounds(10, 65, 265, 20);
@@ -186,7 +186,7 @@ public class StockControlFrame extends JFrame {
             .ifPresentOrElse(fila -> {
               Producto producto;
               try {
-                 producto = new Producto(
+                producto = new Producto(
                         Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString()),
                         modelo.getValueAt(tabla.getSelectedRow(), 1).toString(),
                         modelo.getValueAt(tabla.getSelectedRow(), 2).toString(),
@@ -252,9 +252,9 @@ public class StockControlFrame extends JFrame {
             textoDescripcion.getText(),
             cantidadInt);
 
-    var categoria = comboCategoria.getSelectedItem();
+    var categoria = (Categoria) comboCategoria.getSelectedItem();
 
-    this.productoController.guardar(producto);
+    this.productoController.guardar(producto, categoria.getId());
 
     JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 

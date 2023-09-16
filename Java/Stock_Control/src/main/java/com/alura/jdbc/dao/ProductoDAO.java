@@ -17,14 +17,15 @@ public class ProductoDAO {
   public void guardar(Producto producto) {
     try {
       PreparedStatement statement = con.prepareStatement("INSERT INTO " +
-                      "PRODUCTO(nombre, descripcion, cantidad) " +
-                      "VALUES(?, ?, ?)",
+                      "PRODUCTO(nombre, descripcion, cantidad, categoria_id) " +
+                      "VALUES(?, ?, ?, ?)",
               Statement.RETURN_GENERATED_KEYS);
 
       try (statement) {
         statement.setString(1, producto.getNombre());
         statement.setString(2, producto.getDescripcion());
         statement.setInt(3, producto.getCantidad());
+        statement.setInt(4, producto.getCategoriaId());
         statement.execute();
 
         ResultSet resultSet = statement.getGeneratedKeys();
@@ -104,6 +105,37 @@ public class ProductoDAO {
 
         return statement.getUpdateCount();
       }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public List<Producto> listar(Integer categoriaId) {
+    List<Producto> resultado = new ArrayList<>();
+    try {
+      final PreparedStatement statement = con.prepareStatement
+              ("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO " +
+                      "WHERE CATEGORIA_ID = ? ");
+
+      try (statement) {
+        statement.setInt(1, categoriaId);
+        statement.execute();
+
+        ResultSet resultSet = statement.getResultSet();
+
+        try (resultSet) {
+
+          while (resultSet.next()) {
+            Producto fila = new Producto(resultSet.getInt("ID"),
+                    resultSet.getString("NOMBRE"),
+                    resultSet.getString("DESCRIPCION"),
+                    resultSet.getInt("CANTIDAD"));
+
+            resultado.add(fila);
+          }
+        }
+      }
+      return resultado;
     } catch (SQLException e) {
       throw new RuntimeException(e);
     }
