@@ -16,17 +16,17 @@ public class Producto {
   private BigDecimal precio;
   private LocalDate fechaDeRegistro = LocalDate.now();
   @ManyToOne
-  private Categoria categoria_id;
+  private Categoria categoria;
 
   public Producto(){
 
   }
 
-  public Producto(String nombre, String descripcion, BigDecimal precio, Categoria categoria_id) {
+  public Producto(String nombre, String descripcion, BigDecimal precio, Categoria categoria) {
     this.nombre = nombre;
     this.descripcion = descripcion;
     this.precio = precio;
-    this.categoria_id = categoria_id;
+    this.categoria = categoria;
   }
 
   public Long getId() {
