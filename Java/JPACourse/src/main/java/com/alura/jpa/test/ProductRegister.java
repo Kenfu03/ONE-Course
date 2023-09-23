@@ -3,6 +3,7 @@ package com.alura.jpa.test;
 import com.alura.jpa.dao.CategoriaDAO;
 import com.alura.jpa.dao.ProductoDAO;
 import com.alura.jpa.modelo.Categoria;
+import com.alura.jpa.modelo.CategoriaId;
 import com.alura.jpa.modelo.Producto;
 import com.alura.jpa.utils.JPAUtils;
 
@@ -20,10 +21,8 @@ public class ProductRegister {
 
     Producto producto = productoDAO.consultaPorId(1L);
 
-    System.out.println(producto.getNombre());
-
-    BigDecimal producto1 = productoDAO.consultarPrecioPorNombre("Samsumg");
-    System.out.println(producto1);
+    Categoria celulares = em.find(Categoria.class, new CategoriaId("Celulares", "456"));
+    System.out.println(celulares.getNombre());
   }
 
   public static void registrarProducto(){

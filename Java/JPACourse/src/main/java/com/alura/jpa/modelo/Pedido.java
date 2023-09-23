@@ -1,5 +1,7 @@
 package com.alura.jpa.modelo;
 
+import org.hibernate.engine.profile.Fetch;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +17,7 @@ public class Pedido {
   private Long id;
   private LocalDate fecha = LocalDate.now();
   BigDecimal valorTotal = new BigDecimal(0);
-  @ManyToOne
+  @ManyToOne(fetch=FetchType.LAZY)
   private Cliente cliente;
 
   @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)

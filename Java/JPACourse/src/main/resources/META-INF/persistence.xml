@@ -6,7 +6,7 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:h2:C:\Users\Kenek\Documents\ONE-Course\JavaProjectsDB\jpa\jpa"/>
+                      value="jdbc:h2:C:\Users\Kennito\Documents\ONE-Course\JavaProjectsDB\jpa\jpa"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value="1234"/>
 

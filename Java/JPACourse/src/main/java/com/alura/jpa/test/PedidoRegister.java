@@ -6,9 +6,11 @@ import com.alura.jpa.dao.PedidoDAO;
 import com.alura.jpa.dao.ProductoDAO;
 import com.alura.jpa.modelo.*;
 import com.alura.jpa.utils.JPAUtils;
+import com.alura.jpa.vo.RelatorioDeVenta;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class PedidoRegister {
   public static void main(String[] args) {
@@ -29,7 +31,12 @@ public class PedidoRegister {
     clienteDAO.guardar(cliente);
     pedidoDAO.guardar(pedido);
     em.getTransaction().commit();
-    em.close();
+    BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
+    System.out.println(valorTotal);
+
+    List<RelatorioDeVenta> relatorio = pedidoDAO.relatorioDeVentasVO();
+    relatorio.forEach(System.out::println);
+
   }
 
   public static void registrarProducto(){
