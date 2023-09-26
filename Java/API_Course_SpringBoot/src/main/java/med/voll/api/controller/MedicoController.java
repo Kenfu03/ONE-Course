@@ -21,7 +21,11 @@ public class MedicoController {
   private MedicoRepository medicoRepository;
 
   @PostMapping
-  public ResponseEntity<DatosRespuestaMedico> resgistrarMedicos(@RequestBody @Valid DatosRegistroMedico datosRegistroMedico, UriComponentsBuilder uriComponentsBuilder){
+  public ResponseEntity<DatosRespuestaMedico> resgistrarMedicos(
+      @RequestBody
+      @Valid
+      DatosRegistroMedico datosRegistroMedico,
+      UriComponentsBuilder uriComponentsBuilder) {
     Medico medico = medicoRepository.save(new Medico(datosRegistroMedico));
     DatosRespuestaMedico datosRespuestaMedico = new DatosRespuestaMedico(medico);
     URI uri = uriComponentsBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
@@ -29,7 +33,7 @@ public class MedicoController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<DatosListadoMedico>> listadoMedico(@PageableDefault(size = 10, sort = "nombre") Pageable paginacion){
+  public ResponseEntity<Page<DatosListadoMedico>> listadoMedico(@PageableDefault(size = 10, sort = "nombre") Pageable paginacion) {
 //    return medicoRepository.findAll(paginacion).map(DatosListadoMedico::new);     Encontrar todos sin filtro
 
     // Encontrar medicos aplicando filtro de Activo = true
@@ -45,7 +49,7 @@ public class MedicoController {
 
   @PutMapping
   @Transactional
-  public ResponseEntity<DatosRespuestaMedico> actualizarMedico(@RequestBody @Valid DatosUpdateMedico datosUpdateMedico){
+  public ResponseEntity<DatosRespuestaMedico> actualizarMedico(@RequestBody @Valid DatosUpdateMedico datosUpdateMedico) {
     Medico medico = medicoRepository.getReferenceById(datosUpdateMedico.id());
     medico.actualizarDatos(datosUpdateMedico);
     return ResponseEntity.ok(new DatosRespuestaMedico(medico));
